@@ -2,7 +2,7 @@
 - name: Configure Ansible Controller
   hosts: ansible-lab-controller
   tasks:
-  - name: Ensure latest Ansible version
+  - name: Ensure latest package versions
     become: yes
     ansible.builtin.package:
       name: 
