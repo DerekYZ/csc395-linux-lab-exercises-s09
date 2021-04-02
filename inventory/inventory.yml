@@ -3,7 +3,7 @@ all:
     az-workstation:
       ansible_host: localhost
       ansible_connection: local
-    ansible-controller:
+    ansible-lab-controller:
       ansible_host: 10.1.1.4
   children:
     ansible_lab_hosts:
