@@ -9,6 +9,7 @@
       - ansible
       - git
       state: latest
+
 - name: Universal host configuration
   hosts: ansible_lab_hosts
   vars:
@@ -19,16 +20,35 @@
       stig_version: rhel7
       security_enable_pwquality_password_set: yes
       security_password_max_lifetime_days: 90
+
 - name: Configure DNS server
   hosts: ansible-lab-host1
   vars:
     ansible_become: true
   tasks:
-  - name: disable existing dns
-    ansible.builtin.package:
-      name: system-resolved
-      state: stopped
-  - name: install dnsmasq
+  - name: Install dnsmasq
     ansible.builtin.package:
       name: dnsmasq
       state: latest
+  - name: Set local hostname
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: '^10\.1\.2\.4'
+      line: '10.1.2.4 {{ ansible_hostname }}'
+  - name: Disable existing DNS
+    ansible.builtin.service:
+      name: systemd-resolved
+      enabled: no
+      state: stopped
+  - name: Set dnsmasq configuration file
+    ansible.builtin.copy:
+      src: ./files/dnsmasq.conf
+      dest: /etc/dnsmasq.conf
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Restart dnsmasq
+    ansible.builtin.service:
+      name: dnsmasq
+      enabled: yes
+      state: restarted
