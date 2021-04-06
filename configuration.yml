@@ -10,7 +10,7 @@
       - git
       state: latest
 - name: Universal host configuration
-  hosts: ansible-lab-hosts
+  hosts: ansible_lab_hosts
   vars:
     ansible_become: true
   roles:
@@ -19,3 +19,9 @@
       stig_version: rhel7
       security_enable_pwquality_password_set: yes
       security_password_max_lifetime_days: 90
+- name: Configure DNS server
+  hosts: ansible-lab-host1
+  tasks:
+    ansible.builtin.package:
+      name: dnsmasq
+      state: latest
