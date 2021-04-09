@@ -34,7 +34,17 @@
     ansible.builtin.lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.4'
-      line: '10.1.2.4 {{ ansible_hostname }}'
+      line: '10.1.2.4 c001-n@me1'
+  - name: set host 2 name
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: '^10\.1\.2\.5'
+      line: '10.1.2.5 c001-n@me2'
+  - name: set host 3 name
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: '^10\.1\.2\.6'
+      line: '10.1.2.6 c001-n@me3' 
   - name: Disable existing DNS
     ansible.builtin.service:
       name: systemd-resolved
