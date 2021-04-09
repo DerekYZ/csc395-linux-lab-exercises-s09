@@ -49,17 +49,17 @@
     ansible.builtin.package:
       name: dnsmasq
       state: latest
-  - name: Set local hostname
+  - name: Set host1 name
     ansible.builtin.lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.4'
       line: '10.1.2.4 c001-n@me1'
-  - name: set host 2 name
+  - name: set host2 name
     ansible.builtin.lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.5'
       line: '10.1.2.5 c001-n@me2'
-  - name: set host 3 name
+  - name: set host3 name
     ansible.builtin.lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.6'
