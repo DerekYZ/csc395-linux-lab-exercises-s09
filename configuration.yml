@@ -45,39 +45,51 @@
       - 1.1.1.1
       - 1.0.0.1      
   tasks:
-  - name: Install dnsmasq
-    ansible.builtin.package:
-      name: dnsmasq
-      state: latest
+  #- name: Install dnsmasq
+  #  ansible.builtin.package:
+  #    name: dnsmasq
+  #    state: latest
   - name: Set host1 name
-    ansible.builtin.lineinfile:
+    lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.4'
       line: '10.1.2.4 c001-n@me1'
   - name: set host2 name
-    ansible.builtin.lineinfile:
+    lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.5'
       line: '10.1.2.5 c001-n@me2'
   - name: set host3 name
-    ansible.builtin.lineinfile:
+    lineinfile:
       path: /etc/hosts
       regexp: '^10\.1\.2\.6'
       line: '10.1.2.6 c001-n@me3'
-  - name: Disable existing DNS
-    ansible.builtin.service:
-      name: systemd-resolved
-      enabled: no
-      state: stopped
-  - name: Set dnsmasq configuration file
-    ansible.builtin.copy:
-      src: ./files/dnsmasq.conf
-      dest: /etc/dnsmasq.conf
-      owner: root
-      group: root
-      mode: '0644'
-  - name: Restart dnsmasq
-    ansible.builtin.service:
-      name: dnsmasq
-      enabled: yes
-      state: restarted
+  
+  - name: Configure hosts to use local DNS
+  hosts: azure_lab
+  vars:
+    ansible_become: true
+  tasks:
+  - name: Set resolv.conf nameserver
+    lineinfile:
+      path: /etc/resolv.conf
+      regexp: '^nameserver'
+      line: 'nameserver 10.1.2.4'
+
+  #- name: Disable existing DNS
+  #  ansible.builtin.service:
+  #    name: systemd-resolved
+  #    enabled: no
+  #    state: stopped
+  #- name: Set dnsmasq configuration file
+  #  ansible.builtin.copy:
+  #    src: ./files/dnsmasq.conf
+  #    dest: /etc/dnsmasq.conf
+  #    owner: root
+  #    group: root
+  #    mode: '0644'
+  #- name: Restart dnsmasq
+  #  ansible.builtin.service:
+  #    name: dnsmasq
+  #    enabled: yes
+  #    state: restarted
