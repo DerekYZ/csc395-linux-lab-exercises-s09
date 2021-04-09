@@ -34,6 +34,16 @@
   hosts: ansible-lab-host1
   vars:
     ansible_become: true
+  roles:
+  - role: bertvv.dnsmasq
+    vars:
+      dnsmasq_bogus_priv: true
+      dnsmasq_domain: 'cool.name'
+      dnsmasq_domain_needed: true
+      dnsmasq_expand_hosts: true
+      dnsmasq_upstream_servers:
+      - 1.1.1.1
+      - 1.0.0.1      
   tasks:
   - name: Install dnsmasq
     ansible.builtin.package:
