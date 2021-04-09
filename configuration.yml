@@ -21,6 +21,15 @@
       security_enable_pwquality_password_set: yes
       security_password_max_lifetime_days: 90
     tags: hardening
+  tasks:
+  - name: Add local hostname
+    lineinfile:
+      dest: /etc/hosts
+      regexp: '.*{{ansible_hostname}}$'
+      line: "{{ansible_host}} {{ansible_hostname}}"
+      state: present
+    when: ansible_host is defined
+
 - name: Configure DNS server
   hosts: ansible-lab-host1
   vars:
