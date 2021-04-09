@@ -3,6 +3,7 @@
 interface=eth0
 domain-needed
 bogus-priv
+no-resolv
 
 expand-hosts
 domain=ansible-lab.local
