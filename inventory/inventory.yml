@@ -18,3 +18,6 @@ all:
           hosts:
             ansible-lab-controller:
               ansible_host: 10.1.1.4
+    new_group:
+      hosts:
+        ansible_host: 10.1.2.4
