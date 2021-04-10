@@ -1,5 +1,6 @@
 # Ansible Managed
 
+port=5353
 interface=eth0
 domain-needed
 bogus-priv
