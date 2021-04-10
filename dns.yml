@@ -43,14 +43,14 @@
       regexp: '^nameserver'
       line: 'nameserver=10.1.2.4'
 
-- name: Disable existing DNS
-  hosts: new_group
-  tasks:
-  - name: stop system resolved  
-    ansible.builtin.service:
-      name: systemd-resolved
-      enabled: no
-      state: stopped
+# - name: Disable existing DNS
+#   hosts: new_group
+#   tasks:
+#   - name: stop system resolved  
+#     ansible.builtin.service:
+#       name: systemd-resolved
+#       enabled: no
+#       state: stopped
 
   - name: Set dnsmasq configuration file
     ansible.builtin.copy:
