@@ -37,11 +37,11 @@
     lineinfile:
       path: /etc/hosts
       line: '10.1.2.6 c001-n@me3'
-  - name: Set resolv.conf nameserver
-    lineinfile:
-      path: /etc/resolv.conf
-      regexp: '^nameserver'
-      line: 'nameserver=10.1.2.4'
+  # - name: Set resolv.conf nameserver
+  #   lineinfile:
+  #     path: /etc/resolv.conf
+  #     regexp: '^nameserver'
+  #     line: 'nameserver=10.1.2.4'
 
 # - name: Disable existing DNS
 #   hosts: new_group
