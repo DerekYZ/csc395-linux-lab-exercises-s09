@@ -2,7 +2,7 @@
 - name: Ensure systemd-resolved running
   hosts: ansible-lab-host1
   become: yes
-  ansible.biultin.service:
+  ansible.builtin.service:
     name: systemd-resolved
     state: started
 
@@ -29,14 +29,14 @@
 - name: Ensure systemd-resolved stopped
   hosts: ansible-lab-host1
   become: yes
-  ansible.biultin.service:
+  ansible.builtin.service:
     name: systemd-resolved
     state: stopped
 
 - name: Restart dnsmasq
   hosts: ansible-lab-host1
   become: yes
-  ansible.biultin.service:
+  ansible.builtin.service:
     name: dnsmasq
     state: restarted
   
