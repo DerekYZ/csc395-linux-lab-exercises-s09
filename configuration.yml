@@ -76,20 +76,20 @@
       regexp: '^nameserver'
       line: 'nameserver 10.1.2.4'
 
-  #- name: Disable existing DNS
-  #  ansible.builtin.service:
-  #    name: systemd-resolved
-  #    enabled: no
-  #    state: stopped
-  #- name: Set dnsmasq configuration file
-  #  ansible.builtin.copy:
-  #    src: ./files/dnsmasq.conf
-  #    dest: /etc/dnsmasq.conf
-  #    owner: root
-  #    group: root
-  #    mode: '0644'
-  #- name: Restart dnsmasq
-  #  ansible.builtin.service:
-  #    name: dnsmasq
-  #    enabled: yes
-  #    state: restarted
+  - name: Disable existing DNS
+    ansible.builtin.service:
+      name: systemd-resolved
+      enabled: no
+      state: stopped
+  - name: Set dnsmasq configuration file
+    ansible.builtin.copy:
+      src: ./files/dnsmasq.conf
+      dest: /etc/dnsmasq.conf
+      owner: root
+      group: root
+      mode: '0644'
+  - name: Restart dnsmasq
+    ansible.builtin.service:
+      name: dnsmasq
+      enabled: yes
+      state: restarted
