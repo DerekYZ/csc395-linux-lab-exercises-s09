@@ -1,4 +1,11 @@
 ---
+- name: Ensure systemd-resolved running
+  hosts: ansible-lab-host1
+  become: yes
+  ansible.biultin.service:
+    name: systemd-resolved
+    state: started
+
 - name: Configure DNS server
   hosts: ansible-lab-host1
   vars:
@@ -19,6 +26,19 @@
   #    name: dnsmasq
   #    state: latest
 
+- name: Ensure systemd-resolved stopped
+  hosts: ansible-lab-host1
+  become: yes
+  ansible.biultin.service:
+    name: systemd-resolved
+    state: stopped
+
+- name: Restart dnsmasq
+  hosts: ansible-lab-host1
+  become: yes
+  ansible.biultin.service:
+    name: dnsmasq
+    state: restarted
   
 - name: Configure hosts to use local DNS
   hosts: all
