@@ -13,12 +13,18 @@
       dnsmasq_upstream_servers:
       - 1.1.1.1
       - 1.0.0.1
-      - 10.1.2.4
+  #tasks:
+  #- name: Install dnsmasq
+  #  ansible.builtin.package:
+  #    name: dnsmasq
+  #    state: latest
+
+  
+- name: Configure hosts to use local DNS
+  hosts: all
+  vars:
+    ansible_become: true
   tasks:
-  - name: Install dnsmasq
-    ansible.builtin.package:
-      name: dnsmasq
-      state: latest
   - name: Set host1 name
     lineinfile:
       path: /etc/hosts
@@ -31,12 +37,6 @@
     lineinfile:
       path: /etc/hosts
       line: '10.1.2.6 c001-n@me3'
-  
-- name: Configure hosts to use local DNS
-  hosts: all
-  vars:
-    ansible_become: true
-  tasks:
   - name: Set resolv.conf nameserver
     lineinfile:
       path: /etc/resolv.conf
