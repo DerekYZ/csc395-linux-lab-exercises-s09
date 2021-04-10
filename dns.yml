@@ -32,16 +32,22 @@
 - name: Ensure systemd-resolved stopped
   hosts: ansible-lab-host1
   become: yes
-  ansible.builtin.service:
-    name: systemd-resolved
-    state: stopped
+  tasks:
+  - name: stop resolved
+    become: yes
+    ansible.builtin.service:
+      name: systemd-resolved
+      state: stopped
 
-- name: Restart dnsmasq
+- name: restart dnsmasq
   hosts: ansible-lab-host1
   become: yes
-  ansible.builtin.service:
-    name: dnsmasq
-    state: restarted
+  tasks:
+  - name: restart dnsmasq
+    become: yes
+    ansible.builtin.service:
+      name: dnsmasq
+      state: restarted
   
 - name: Configure hosts to use local DNS
   hosts: all
