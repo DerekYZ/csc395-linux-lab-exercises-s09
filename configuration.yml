@@ -63,7 +63,7 @@
       path: /etc/hosts
       line: '10.1.2.6 c001-n@me3'
   
-  - name: Configure hosts to use local DNS
+- name: Configure hosts to use local DNS
   hosts: all
   vars:
     ansible_become: true
