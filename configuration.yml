@@ -75,7 +75,7 @@
       line: 'nameserver=10.1.2.4'
 
 - name: Disable existing DNS
-  host: ansible-lab-host1
+  host: new_group
   tasks:
   - name: stop system resolved  
     ansible.builtin.service:
