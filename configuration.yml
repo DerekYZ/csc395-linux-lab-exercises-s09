@@ -45,10 +45,10 @@
       - 1.1.1.1
       - 1.0.0.1      
   tasks:
-  #- name: Install dnsmasq
-  #  ansible.builtin.package:
-  #    name: dnsmasq
-  #    state: latest
+  - name: Install dnsmasq
+    ansible.builtin.package:
+      name: dnsmasq
+      state: latest
   - name: Set host1 name
     lineinfile:
       path: /etc/hosts
