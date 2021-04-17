@@ -1,0 +1,8 @@
+---
+dnsmasq_bogus_priv: true
+dnsmasq_domain: 'cool.name'
+dnsmasq_domain_needed: true
+dnsmasq_expand_hosts: true
+dnsmasq_upstream_servers:
+- 1.1.1.1
+- 1.0.0.1
