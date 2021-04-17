@@ -31,14 +31,14 @@
     when: ansible_host is defined
 
 - name: Configure Samba server
-  hosts: ansible-lab-host2
+  hosts: ansible-lab-host1
   vars:
     ansible_become: true
   roles:
   - bertvv.samba
 
 - name: Configure Samba client
-  hosts: ansible-lab-host3
+  hosts: ansible-lab-host2
   vars:
     ansible_become: true
   tasks:
@@ -55,7 +55,7 @@
       mode: '0600'
   - name: Add share mount
     mount:
-      src: //10.1.2.5/testshare
+      src: //10.1.2.4/testshare
       path: /mnt/smbshare
       fstype: cifs
       opts: credentials=/home/{{ admin_un }}/.smbpasswd
