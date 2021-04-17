@@ -1,12 +1,12 @@
 ---
-admin_samba_pw: '{{ vault_admin_samba_pw }}'
+admin_samba_pw: '{{ vault_admin_pw }}'
 admin_un: '404notfound'
 
 samba_server_string: 'Ansible Lab File Server'
 samba_workgroup: TESTGROUP
 samba_users:
 - name: '{{ admin_un }}'
-  password: '{{ admin_samba_pw }}'
+  password: '{{ admin_pw }}'
 samba_shares_root: /srv/samba
 samba_shares:
 - name: testshare
