@@ -1,6 +1,6 @@
 ---
 - name: Configure Ansible Controller
-  hosts: ansible-lab-controller
+  hosts: ansible_lab_controller
   tasks:
   - name: Ensure latest package versions
     become: yes
