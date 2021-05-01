@@ -19,11 +19,12 @@
     file:
       state: absent
       path: "{{ ansible_env.HOME }}/openvpn-ca/"
+
   - name: "Create CA dir"
     become: yes
     command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
 
-    - name: Customize CA variable configuration
+  - name: Customize CA variable configuration
     lineinfile:
       dest: "{{ ansible_env.HOME }}/openvpn-ca/vars"
       regexp: "^{{ item.property | regex_escape() }}="
