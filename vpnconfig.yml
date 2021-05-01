@@ -1,6 +1,6 @@
 ---
 - name: install OpenVPN
-  hosts: ansible-lab-controller
+  hosts: ansible-labcontroller
   become: true
   tasks:
   - name: Update apt packages
@@ -14,27 +14,27 @@
       - openvpn
       - easy-rsa
 
-# - name: "Remove CA directory"
-#   become: yes
-#   file:
-#     state: absent
-#     path: "{{ ansible_env.HOME }}/openvpn-ca/"
-# - name: "Create CA dir"
-#   become: yes
-#   command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
+- name: "Remove CA directory"
+  become: yes
+  file:
+    state: absent
+    path: "{{ ansible_env.HOME }}/openvpn-ca/"
+- name: "Create CA dir"
+  become: yes
+  command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
 
-  # - name: Customize CA variable configuration
-  # lineinfile:
-  #   dest: "{{ ansible_env.HOME }}/openvpn-ca/vars"
-  #   regexp: "^{{ item.property | regex_escape() }}="
-  #   line: "{{ item.property }}={{ item.value }}"
-  # with_items:
-  #   - { property: 'export KEY_NAME', value: '"server"' }
-  #   - { property: 'export KEY_COUNTRY', value: '"US"' }
-  #   - { property: 'export KEY_PROVINCE', value: '"WA"' }
-  #   - { property: 'export KEY_CITY', value: '"TC"' }
-  #   - { property: 'export KEY_ORG', value: '"NW"' }
-  #   - { property: 'export KEY_EMAIL', value: '"yijun.zhao_2020@outlook.com"' }
-  #   - { property: 'export KEY_OU', value: '"TC"' }
-  #   - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
-  #   - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
+  - name: Customize CA variable configuration
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/openvpn-ca/vars"
+    regexp: "^{{ item.property | regex_escape() }}="
+    line: "{{ item.property }}={{ item.value }}"
+  with_items:
+    - { property: 'export KEY_NAME', value: '"server"' }
+    - { property: 'export KEY_COUNTRY', value: '"US"' }
+    - { property: 'export KEY_PROVINCE', value: '"WA"' }
+    - { property: 'export KEY_CITY', value: '"TC"' }
+    - { property: 'export KEY_ORG', value: '"NW"' }
+    - { property: 'export KEY_EMAIL', value: '"yijun.zhao_2020@outlook.com"' }
+    - { property: 'export KEY_OU', value: '"TC"' }
+    - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
+    - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
