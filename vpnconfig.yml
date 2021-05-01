@@ -1,6 +1,6 @@
 ---
 - name: install OpenVPN
-  hosts: ansible_lab_controller
+  hosts: ansible-lab-controller
   become: true
   tasks:
   - name: Update apt packages
