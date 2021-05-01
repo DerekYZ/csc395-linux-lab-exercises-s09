@@ -43,7 +43,7 @@
   - name: "Build the certificate authority"
     become: yes
     shell: >
-      ./build-ca
+      {{ ansible_env.HOME }}/build-ca
     args: 
       chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
       executable: /bin/bash
