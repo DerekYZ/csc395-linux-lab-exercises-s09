@@ -14,15 +14,15 @@
       - openvpn
       - easy-rsa
 
-  - name: "Remove CA directory"
-    become: yes
-    file:
-      state: absent
-      path: "{{ ansible_env.HOME }}/openvpn-ca/"
+  # - name: "Remove CA directory"
+  #   become: yes
+  #   file:
+  #     state: absent
+  #     path: "{{ ansible_env.HOME }}/openvpn-ca/"
 
-  - name: "Create CA dir"
-    become: yes
-    command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
+  # - name: "Create CA dir"
+  #   become: yes
+  #   command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
 
   - name: Customize CA variable configuration
     lineinfile:
