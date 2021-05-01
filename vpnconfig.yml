@@ -39,3 +39,13 @@
       - { property: 'export KEY_OU', value: '"TC"' }
       - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
       - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
+
+  - name: "Build the certificate authority"
+    become: yes
+    shell: >
+      source vars;
+      ./clean-all;
+      yes "" | ./build-ca;
+    args: 
+      chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
+      executable: /bin/bash
