@@ -14,41 +14,28 @@
       - openvpn
       - easy-rsa
 
-  # - name: "Remove CA directory"
-  #   become: yes
-  #   file:
-  #     state: absent
-  #     path: "{{ ansible_env.HOME }}/openvpn-ca/"
-
-  # - name: "Create CA dir"
-  #   become: yes
-  #   command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
-
-  - name: Customize CA variable configuration
-    lineinfile:
-      dest: "{{ ansible_env.HOME }}/openvpn-ca/vars"
-      regexp: "^{{ item.property | regex_escape() }}="
-      line: "{{ item.property }}={{ item.value }}"
-    with_items:
-      - { property: 'export KEY_NAME', value: '"server"' }
-      - { property: 'export KEY_COUNTRY', value: '"US"' }
-      - { property: 'export KEY_PROVINCE', value: '"WA"' }
-      - { property: 'export KEY_CITY', value: '"TC"' }
-      - { property: 'export KEY_ORG', value: '"NW"' }
-      - { property: 'export KEY_EMAIL', value: '"yijun.zhao_2020@outlook.com"' }
-      - { property: 'export KEY_OU', value: '"TC"' }
-      - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
-      - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
-
-  - name: "copy /usr/share/easy-rsa/ to /root/openvpn-ca/easy-rsa"
+  - name: copy file
     copy:
       src: /usr/share/easy-rsa
-      dest: /root/openvpn-ca/
+      dest: /etc/openvpn
+  
+  - name: use templet file
+    template:
+      src: ./files/vars.j2
+      dest: /etc/openvpn/easy-rsa/vars
 
-  - name: "Build the certificate authority"
-    become: yes
-    shell: >
-      {{ ansible_env.HOME }}/openvpn-ca/build-ca
-    args: 
-      chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
-      executable: /bin/bash
+  # - name: Customize CA variable configuration
+  #   lineinfile:
+  #     dest: "/etc/openvpn/easy-rsa/vars"
+  #     regexp: "^{{ item.property | regex_escape() }}="
+  #     line: "{{ item.property }}={{ item.value }}"
+  #   with_items:
+  #     - { property: 'export KEY_NAME', value: '"server"' }
+  #     - { property: 'export KEY_COUNTRY', value: '"US"' }
+  #     - { property: 'export KEY_PROVINCE', value: '"WA"' }
+  #     - { property: 'export KEY_CITY', value: '"TC"' }
+  #     - { property: 'export KEY_ORG', value: '"NW"' }
+  #     - { property: 'export KEY_EMAIL', value: '"yijun.zhao_2020@outlook.com"' }
+  #     - { property: 'export KEY_OU', value: '"TC"' }
+  #     - { property: 'export KEY_CONFIG', value: '{{ ansible_env.HOME }}/openvpn-ca/openssl-1.0.0.cnf' }
+  #     - { property: 'export KEY_DIR', value: '{{ ansible_env.HOME }}/openvpn-ca/keys' }
