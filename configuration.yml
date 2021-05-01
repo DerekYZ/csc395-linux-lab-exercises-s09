@@ -69,11 +69,11 @@
   tags: init
 
   - name: Install OpenVPN
-  hosts: ansible-lab-controller
-  gather_facts: true
-  vars:
-    ansible_become: true
-    openvpn_server_hostname: 13.91.99.162
-  roles:
-    - role: ansible-role-openvpn
-      clients: client1
+    hosts: ansible-lab-controller
+    gather_facts: true
+    vars:
+      ansible_become: true
+      openvpn_server_hostname: 13.91.99.162
+    roles:
+      - role: ansible-role-openvpn
+        clients: client1
