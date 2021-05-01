@@ -43,7 +43,7 @@
   - name: "copy /usr/share/easy-rsa/ to /root/openvpn-ca/easy-rsa"
     copy:
       src: /usr/share/easy-rsa
-      dest: /root/openvpn-ca/
+      dest: /root/openvpn-ca
 
   - name: "Build the certificate authority"
     become: yes
