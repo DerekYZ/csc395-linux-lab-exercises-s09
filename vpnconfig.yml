@@ -30,10 +30,11 @@
     args:
       chdir: /etc/openvpn/easy-rsa/
 
-  # - name: This command will change the working directory to somedir/
-  #   ansible.builtin.shell:
-  #     cmd: ./easyrsa build-ca
-  #     chdir: /etc/openvpn/easy-rsa/vars
+  - name: change the working directory to somedir/2
+    shell: ./easyrsa build-ca
+    args:
+      chdir: /etc/openvpn/easy-rsa/
+
       
 
   # - name: Customize CA variable configuration
