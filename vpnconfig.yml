@@ -43,9 +43,10 @@
   - name: "Build the certificate authority"
     become: yes
     shell: >
-      source vars;
-      ./clean-all;
-      yes "" | ./build-ca;
+#      source vars;
+#      ./clean-all;
+#      yes "" |
+       ./build-ca;
     args: 
       chdir: "{{ ansible_env.HOME }}/openvpn-ca/"
       executable: /bin/bash
