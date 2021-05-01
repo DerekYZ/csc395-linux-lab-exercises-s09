@@ -32,11 +32,23 @@
     tags: init
 
   - name: change the working directory to somedir/2
-    shell: ./easyrsa build-ca
-    args:
-      chdir: /etc/openvpn/easy-rsa/
+    expect:
+      command: ./easyrsa build-ca
+      responses:
+        Question:
+          - Pa55w.rd
+          - Easy-RSA CA
+    chdir: /etc/openvpn/easy-rsa/
+    tags: init
 
-      
+  - name: build svr key
+    expect:
+      command: ./easyrsa gen-req hakase-server nopass
+      responses:
+        Question:
+          - Easy-RSA CA
+    chdir: /etc/openvpn/easy-rsa/
+    tags: init
 
   # - name: Customize CA variable configuration
   #   lineinfile:
