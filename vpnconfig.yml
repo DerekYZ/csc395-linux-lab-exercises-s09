@@ -20,9 +20,9 @@
       state: absent
       path: "{{ ansible_env.HOME }}/openvpn-ca/"
 
-  # - name: "Create CA dir"
-  #   become: yes
-  #   command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
+  - name: "Create CA dir"
+    become: yes
+    command: make-cadir {{ ansible_env.HOME }}/openvpn-ca
 
   # - name: Customize CA variable configuration
   #   lineinfile:
