@@ -1,18 +1,18 @@
 ---
-name: install OpenVPN
-hosts: ansible_lab_controller
-become: true
-tasks:
-- name: Update apt packages
-  apt:
-    upgrade: yes
-- name: Install openvpn
-  package:
-   name: "{{ item }}"
-   state: present
-  with_items:
-    - openvpn
-    - easy-rsa
+- name: install OpenVPN
+  hosts: ansible_lab_controller
+  become: true
+  tasks:
+  - name: Update apt packages
+    apt:
+      upgrade: yes
+  - name: Install openvpn
+    package:
+    name: "{{ item }}"
+    state: present
+    with_items:
+      - openvpn
+      - easy-rsa
 
 # - name: "Remove CA directory"
 #   become: yes
