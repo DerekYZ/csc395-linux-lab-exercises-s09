@@ -25,9 +25,9 @@
       dest: /etc/openvpn/easy-rsa/vars
       mode: "0755"
 
-  - name: This command will change the working directory to somedir/
-    ansible.builtin.shell:
-      cmd: ./easyrsa init-pki
+  - name: change the working directory to somedir/
+    ansible.builtin.shell: ./easyrsa init-pki
+    args:
       chdir: /etc/openvpn/easy-rsa/vars
 
   # - name: This command will change the working directory to somedir/
