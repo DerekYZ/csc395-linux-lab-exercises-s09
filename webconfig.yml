@@ -3,3 +3,9 @@
   tasks:
     - name: run echo command
       command: /bin/echo hello world
+
+- hosts: ansible-lab-host3
+  sudo: yes
+  tasks:
+    - name: install apache2
+      apt: name=apache2 update_cache=yes state=latest
