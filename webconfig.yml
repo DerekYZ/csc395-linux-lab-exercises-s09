@@ -1,0 +1,5 @@
+---
+- hosts: ansible-lab-host3
+  tasks:
+    - name: run echo command
+      command: /bin/echo hello world
