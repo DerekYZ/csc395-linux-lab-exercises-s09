@@ -1,25 +1,38 @@
 ---
 - hosts: ansible-lab-host3
   become: true
-  tasks:
-    - name: install apache2
+  vars:
+         - vars/default.yml
+- tasks:
+    - name: Install latest version of Apache
       apt: name=apache2 update_cache=yes state=latest
 
-    - name: enabled mod_rewrite
-      apache2_module: name=rewrite state=present
-      notify:
-        - restart apache2
+    - name: Create document root for your domain
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
+        owner: "{{ app_user }}"
+        mode: '0755'
 
-    - name: apache2 listen on port 8081
-      lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 80" line="Listen 8081" state=present
-      notify:
-        - restart apache2
+    - name: Copy your index page
+      template:
+        src: "files/index.html.j2"
+        dest: "/var/www/{{ http_host }}/index.html"
 
-    - name: apache2 virtualhost on port 8081
-      lineinfile: dest=/etc/apache2/sites-available/000-default.conf regexp="^<VirtualHost \*:80>" line="<VirtualHost *:8081>" state=present
-      notify:
-        - restart apache2
+    - name: Set up virtuahHost
+      template:
+        src: "files/apache.conf.j2"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+      notify: restart-apache
+
+    - name: "UFW firewall allow HTTP on port {{ http_port }}"
+      ufw:
+        rule: allow
+        port: "{{ http_port }}"
+        proto: tcp
 
   handlers:
-    - name: restart apache2
-      service: name=apache2 state=restarted
+    - name: restart-apache
+      service:
+        name: apache2
+        state: restarted
